@@ -1,2 +1,1 @@
-web: flask run --host=0.0.0.0 --port=$PORT
-init: python main.py
+web: python main.py runserver 0.0.0.0:5000
