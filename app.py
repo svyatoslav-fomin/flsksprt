@@ -1,5 +1,6 @@
 #!flask/bin/python
 from flask import Flask, request
+import requests
 import psycopg2
 import os
 import datetime
