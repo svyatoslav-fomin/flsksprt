@@ -20,7 +20,7 @@ def index():
 
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
 def test(name):
-    exec_script("insert into sprt.bot_income (info) values ('{0}');".format(request.replace('''', '''''')))
+    exec_script("insert into sprt.bot_income (info) values ('{0}');".format(request.replace("'", "''")))
     return 'Hello {0}'.format(name)
 
 if __name__ == '__main__':
