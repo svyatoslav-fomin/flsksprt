@@ -56,7 +56,7 @@ def get_queue():
                 from del""")[0]
     #return ''
 
-def insert_bot_income(token, channel, user_id, text, trigger_id)
+def insert_bot_income(token, channel, user_id, text, trigger_id):
     exec_script("""
       insert into sprt.bot_income
         (token_txt, channel, user_id, info, trigger_id)
