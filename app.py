@@ -86,7 +86,7 @@ def interavtive():
         if interactive_action['type'] == 'interactive_message':
             pass
         elif interactive_action['type'] == 'dialog_submission':
-            insert_bot_income(None, None, None, interactive_action, None)
+            insert_bot_income('', '', '', interactive_action, '')
     except Exception as ex:
         response_text = 'Error: {0}'.format(ex)
 
