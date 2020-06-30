@@ -62,11 +62,11 @@ def insert_bot_income(token, channel, user_id, text, trigger_id):
       insert into sprt.bot_income
         (token_txt, channel, user_id, info, trigger_id)
       values
-        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(token, channel, user_id, text, trigger_id))    
+        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(token, channel, user_id, text, trigger_id)) 
+    os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
   
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
 def slash(name):
-    os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     token = request.form.get('token')
     channel = request.form.get('channel_name')
     user_id = request.form.get('user_id')
@@ -78,8 +78,7 @@ def slash(name):
     return 'Загрузка...'
 
 @app.route('/slack/interactive/v1', methods=['POST'])
-def interavtive():
-    os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+def interactive():
     response_text = ''
     interactive_action = json.loads(request.values['payload'])
 
