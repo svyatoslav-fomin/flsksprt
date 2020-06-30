@@ -7,7 +7,7 @@ app = Flask(__name__)
 def index():
     return 'Hello world'
 
-@app.route('/slack/slash/<name>/v1')
+@app.route('/slack/slash/<name>/v1', methods=['POST'])
 def test(name):
     return 'Hello {0}'.format(name)
 
