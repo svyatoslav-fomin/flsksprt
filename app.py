@@ -8,13 +8,26 @@ import json
 app = Flask(__name__)
 con = psycopg2.connect(dbname   = os.environ['BD_NAME'],
                        host     = os.environ['BD_HOST'],
-                       port     = 5432,
+                       port     = os.environ['BD_PORT'],
                        user     = os.environ['BD_USER'],
                        password = os.environ['BD_USER_PASSWORD'])
 con.set_session(autocommit=True)
 
+sbot_name = os.environ['SBOT_NAME']
+sbot_token = os.environ['SBOT_TOKEN']
+sbot_channel = os.environ['SBOT_CHANNEL']
+
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 os.environ['last_selected_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+
+def post_message_to_slack(text, blocks = None):
+    return requests.post('https://slack.com/api/chat.postMessage', {
+        'token': sbot_token,
+        'channel': sbot_channel,
+        'text': text,
+        'username': sbot_name,
+        'blocks': json.dumps(blocks) if blocks else None
+    }).json()
 
 def exec_script(sql):
     cur = con.cursor()
@@ -71,6 +84,12 @@ def insert_bot_income(token, channel, user_id, text, trigger_id):
             text.replace("'", "''"),
             trigger_id.replace("'", "''"))) 
     os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    post_message_to_slack("""{"token":"{0}", "channel":"{1}", "user_id":"{2}", "text":"{3}", "trigger_id":"{4}");""".format(
+                            token.replace("'", "''"),
+                            channel.replace("'", "''"),
+                            user_id.replace("'", "''"),
+                            text.replace("'", "''"),
+                            trigger_id.replace("'", "''")))
   
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
 def slash(name):
