@@ -11,12 +11,12 @@ con = psycopg2.connect(dbname   = os.environ['BD_NAME'],
                        port     = 5432,
                        user     = os.environ['BD_USER'],
                        password = os.environ['BD_USER_PASSWORD'])
+con.set_session(autocommit=True)
 
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 os.environ['last_selected_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
 def exec_script(sql):
-    con.set_session(autocommit=True)
     cur = con.cursor()
     cur.execute(sql)
 
