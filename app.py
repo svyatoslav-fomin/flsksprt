@@ -11,7 +11,7 @@ con = psycopg2.connect(dbname   = 'd8gq28isrvoolq',
 
 def exec_script(sql):
     con.set_session(autocommit=True)
-    cur = self.con.cursor()
+    cur = con.cursor()
     cur.execute(sql)
 
 @app.route('/')
