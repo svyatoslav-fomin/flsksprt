@@ -59,11 +59,13 @@ def test(name):
     channel = request.form.get('channel_name')
     user_id = request.form.get('user_id')
     text = request.form.get('text')
+    trigger_id = request.values['trigger_id']
+    
     exec_script("""
       insert into sprt.bot_income
-        (token_txt, channel, user_id, info)
+        (token_txt, channel, user_id, info, trigger_id)
       values
-        ('{0}', '{1}', '{2}', '{3}');""".format(token, channel, user_id, text))
+        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(token, channel, user_id, text, trigger_id))
     return 'Hello {0}'.format(name)
 
 if __name__ == '__main__':
