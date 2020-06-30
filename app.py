@@ -64,7 +64,12 @@ def insert_bot_income(token, channel, user_id, text, trigger_id):
       insert into sprt.bot_income
         (token_txt, channel, user_id, info, trigger_id)
       values
-        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(token, channel, user_id, text, trigger_id)) 
+        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(
+            token.replace("'", "''"),
+            channel.replace("'", "''"),
+            user_id.replace("'", "''"),
+            text.replace("'", "''"),
+            trigger_id.replace("'", "''"))) 
     os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
   
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
