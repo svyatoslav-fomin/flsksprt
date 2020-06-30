@@ -84,12 +84,13 @@ def insert_bot_income(token, channel, user_id, text, trigger_id):
             text.replace("'", "''"),
             trigger_id.replace("'", "''"))) 
     os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    post_message_to_slack(""""token":"{0}", "channel":"{1}", "user_id":"{2}", "text":"{3}", "trigger_id":"{4}"""".format(
-                            token.replace("'", "''"),
-                            channel.replace("'", "''"),
-                            user_id.replace("'", "''"),
-                            text.replace("'", "''"),
-                            trigger_id.replace("'", "''")))
+    post_message_to_slack("check")
+    #post_message_to_slack(""""token":"{0}", "channel":"{1}", "user_id":"{2}", "text":"{3}", "trigger_id":"{4}"""".format(
+    #                        token.replace("'", "''"),
+    #                        channel.replace("'", "''"),
+    #                        user_id.replace("'", "''"),
+    #                        text.replace("'", "''"),
+    #                        trigger_id.replace("'", "''")))
   
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
 def slash(name):
