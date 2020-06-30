@@ -56,8 +56,15 @@ def get_queue():
                 from del""")[0]
     #return ''
 
+def insert_bot_income(token, channel, user_id, text, trigger_id)
+    exec_script("""
+      insert into sprt.bot_income
+        (token_txt, channel, user_id, info, trigger_id)
+      values
+        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(token, channel, user_id, text, trigger_id))    
+  
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
-def test(name):
+def slash(name):
     os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     token = request.form.get('token')
     channel = request.form.get('channel_name')
@@ -65,12 +72,25 @@ def test(name):
     text = request.form.get('text')
     trigger_id = request.values['trigger_id']
     
-    exec_script("""
-      insert into sprt.bot_income
-        (token_txt, channel, user_id, info, trigger_id)
-      values
-        ('{0}', '{1}', '{2}', '{3}', '{4}');""".format(token, channel, user_id, text, trigger_id))
-    return 'Hello {0}'.format(name)
+    insert_bot_income(token, channel, user_id, text, trigger_id)
+      
+    return 'Загрузка...'
+
+@app.route('/slack/interactive/v1', methods=['POST'])
+def interavtive():
+    os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    response_text = ''
+    interactive_action = json.loads(request.values['payload'])
+
+    try:
+        if interactive_action['type'] == 'interactive_message':
+            pass
+        elif interactive_action['type'] == 'dialog_submission':
+            insert_bot_income(None, None, None, interactive_action, None)
+    except Exception as ex:
+        response_text = 'Error: {0}'.format(ex)
+
+    return response_text
 
 if __name__ == '__main__':
     app.run()
