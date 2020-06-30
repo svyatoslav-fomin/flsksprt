@@ -20,7 +20,15 @@ def index():
 
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
 def test(name):
-    exec_script("insert into sprt.bot_income (info) values ('{0}');".format(request.replace("'", "''")))
+    token = request.form.get('token')
+    channel = request.form.get('channel_name')
+    user_id = request.form.get('user_id')
+    text = request.form.get('text')
+    exec_script("""
+      insert into sprt.bot_income
+        (token_txt, channel, user_id, info)
+      values
+        ('{0}', '{1}', '{2}', '{3}');""".format(token, channel, user_id, text))
     return 'Hello {0}'.format(name)
 
 if __name__ == '__main__':
