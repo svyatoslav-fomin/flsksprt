@@ -46,10 +46,14 @@ def get_queue():
     d_sel = datetime.datetime.strptime(os.environ['last_selected_income_date'], "%Y%m%d%H%M%S")
     #if d_ins > d_sel:
     return get_queue_json_by_sql("""
-      select token_txt, channel, user_id, info, trigger_id
-        from sprt.bot_income
-       order by dt
-       limit 1""")[0]
+              with del as (delete from sprt.bot_income
+                            where id = (select min(t.id)
+                                          from sprt.bot_income t
+                                         where t.dt = (select min(x.dt)
+                                                         from sprt.bot_income x))
+                           returning token_txt, channel, user_id, info, trigger_id)
+              select token_txt, channel, user_id, info, trigger_id
+                from del""")[0]
     #return ''
 
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
