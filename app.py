@@ -30,7 +30,7 @@ def get_json_by_sql(sql_text):
     for row in rows:
         json_txt = '"{0}":"{1}"'.format('row_num', irow)
         for i in range(0, len(colnames)):
-            json_txt = '{0}, "{1}":"{2}",'.format(json_txt, colnames[i], row[i])
+            json_txt = '{0}, "{1}":"{2}",'.format(json_txt, colnames[i][0], row[i])
         json_txt = '{' + json_txt + '}'
         res.append(json_txt)
         irow = irow + 1
