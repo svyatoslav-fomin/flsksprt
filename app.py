@@ -6,11 +6,11 @@ import datetime
 import json
 
 app = Flask(__name__)
-con = psycopg2.connect(dbname   = 'd8gq28isrvoolq',
-                       host     = 'ec2-34-233-226-84.compute-1.amazonaws.com',
+con = psycopg2.connect(dbname   = os.environ['BD_NAME'],
+                       host     = os.environ['BD_HOST'],
                        port     = 5432,
-                       user     = 'tpjvkqwarvbnqp',
-                       password = 'f5c0c0f2366b42b86ebec2ed34ecc8cf3ba336c950c8e60897ff4f68ea681cf5')
+                       user     = os.environ['BD_USER'],
+                       password = os.environ['BD_USER_PASSWORD'])
 
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 os.environ['last_selected_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
