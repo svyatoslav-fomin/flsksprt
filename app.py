@@ -19,6 +19,22 @@ def exec_script(sql):
     cur = con.cursor()
     cur.execute(sql)
 
+def get_json_by_sql(sql_text):
+    res = []
+    cur = con.cursor()
+    cur.execute(sql_text)
+    colnames = cur.description
+    rows = cur.fetchall()
+    irow = 0
+    for row in rows:
+        json_txt = '"{0}":"{1}"'.format('row_num', irow)
+        for i in range(0, len(colnames)):
+            json_txt = '{0}, "{1}":"{2}",'.format(json_txt, colnames[i], row[i])
+        json_txt = '{' + json_txt + '}'
+        res.append(json.loads(json_txt))
+        irow = irow + 1
+    return res
+
 @app.route('/')
 def index():
     return 'Hello world'
@@ -28,7 +44,10 @@ def get_queue():
     d_ins = datetime.datetime.strptime(os.environ['last_inserted_income_date'], "%Y%m%d%H%M%S")
     d_sel = datetime.datetime.strptime(os.environ['last_selected_income_date'], "%Y%m%d%H%M%S")
     if d_ins > d_sel:
-      return 'ok'
+      return get_json_by_sql("""
+        select token_txt, channel, user_id, info
+          from sprt.bot_income
+         order by dt""")
     return ''
 
 @app.route('/slack/slash/<name>/v1', methods=['POST'])
