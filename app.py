@@ -84,13 +84,13 @@ def interactive():
     response_text = ''
     interactive_action = json.loads(request.values['payload'])
 
-    try:
-        if interactive_action['type'] == 'interactive_message':
-            pass
-        elif interactive_action['type'] == 'dialog_submission':
-            insert_bot_income('', '', '', interactive_action, '')
-    except Exception as ex:
-        response_text = 'Error: {0}'.format(ex)
+    #try:
+    if interactive_action['type'] == 'interactive_message':
+        pass
+    elif interactive_action['type'] == 'dialog_submission':
+        insert_bot_income('', '', '', str(interactive_action), '')
+    #except Exception as ex:
+    #    response_text = 'Error: {0}'.format(ex)
 
     return response_text
 
