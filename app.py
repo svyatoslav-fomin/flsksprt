@@ -21,6 +21,7 @@ def get_dialogs_list():
     for row in rows:
         res[row[0]] = row[1].replace('\r\n', '')
     return res
+dialogs = get_dialogs_list()
 
 slack_api_dialog_url = 'https://slack.com/api/dialog.open'
 
@@ -136,7 +137,7 @@ def slash(name):
     api_data = {
         "token": sbot_token2,
         "trigger_id": trigger_id,
-        "dialog": json.dumps(json.loads(dialogs[name])) #json.dumps(dialog_test)
+        "dialog": json.loads(dialogs[name]) #json.dumps(dialog_test)
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
@@ -160,6 +161,5 @@ def interactive():
 if __name__ == '__main__':
     con.set_session(autocommit=True)
     exec_script('delete from sprt.bot_income;')
-    dialogs = get_dialogs_list()
     app.run()
 
