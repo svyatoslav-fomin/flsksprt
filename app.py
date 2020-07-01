@@ -14,8 +14,21 @@ con = psycopg2.connect(dbname   = os.environ['BD_NAME'],
                        password = os.environ['BD_USER_PASSWORD'])
 con.set_session(autocommit=True)
 
+def get_dialogs_list():
+    res = {}
+    cur = con.cursor()
+    cur.execute('select * from sprt.bot_dialogs')
+    rows = cur.fetchall()
+    for row in rows:
+        res[row[0]] = row[1].replace('\r\n', '')
+    return res
+
+dialogs = get_dialogs_list()
+slack_api_dialog_url = 'https://slack.com/api/dialog.open'
+
 sbot_name = os.environ['SBOT_NAME']
 sbot_token = os.environ['SBOT_TOKEN']
+sbot_token2 = os.environ['SBOT_TOKEN2']
 sbot_channel = os.environ['SBOT_CHANNEL']
 
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -101,8 +114,16 @@ def slash(name):
     text = request.form.get('text')
     trigger_id = request.values['trigger_id']
     
-    insert_bot_income(token, channel, user_id, text, trigger_id)
-      
+    #insert_bot_income(token, channel, user_id, text, trigger_id)
+
+    trigger_id = request.values['trigger_id']
+    api_data = {
+        "token": sbot_token2,
+        "trigger_id": trigger_id,
+        "dialog": json.dumps(dialogs[name])
+    }
+    res = requests.post(api_url, data=api_data)
+    
     return 'Загрузка...'
 
 @app.route('/slack/interactive/v1', methods=['POST'])
