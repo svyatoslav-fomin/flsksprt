@@ -136,7 +136,7 @@ def slash(name):
     api_data = {
         "token": sbot_token2,
         "trigger_id": trigger_id,
-        "dialog": json.dumps(dialog_test)) #json.dumps(dialogs[name])
+        "dialog": json.dumps(dialog_test) #json.dumps(dialogs[name])
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
