@@ -110,7 +110,7 @@ def slash(name):
     token = request.form.get('token')
     channel = request.form.get('channel_name')
     user_id = request.form.get('user_id')
-    text =  str(request.form.get('payload')) #request.form.get('text')
+    text =  request.form.get('text')
     trigger_id = request.values['trigger_id']
     
     insert_bot_income(token, channel, user_id, text, trigger_id)
