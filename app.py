@@ -122,7 +122,7 @@ def slash(name):
         "trigger_id": trigger_id,
         "dialog": json.dumps(dialogs[name])
     }
-    res = requests.post(api_url, data=api_data)
+    res = requests.post(slack_api_dialog_url, data=api_data)
     
     return 'Загрузка...'
 
