@@ -12,7 +12,6 @@ con = psycopg2.connect(dbname   = os.environ['BD_NAME'],
                        port     = os.environ['BD_PORT'],
                        user     = os.environ['BD_USER'],
                        password = os.environ['BD_USER_PASSWORD'])
-con.set_session(autocommit=True)
 
 def get_dialogs_list():
     res = {}
@@ -23,7 +22,6 @@ def get_dialogs_list():
         res[row[0]] = row[1].replace('\r\n', '')
     return res
 
-dialogs = get_dialogs_list()
 slack_api_dialog_url = 'https://slack.com/api/dialog.open'
 
 sbot_name = os.environ['SBOT_NAME']
@@ -138,7 +136,7 @@ def slash(name):
     api_data = {
         "token": sbot_token2,
         "trigger_id": trigger_id,
-        "dialog": dialog_test) #json.dumps(dialogs[name])
+        "dialog": json.dumps(dialog_test)) #json.dumps(dialogs[name])
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
@@ -160,6 +158,8 @@ def interactive():
     return response_text
 
 if __name__ == '__main__':
-    app.run()
+    con.set_session(autocommit=True)
     exec_script('delete from sprt.bot_income;')
+    dialogs = get_dialogs_list()
+    app.run()
 
