@@ -116,11 +116,29 @@ def slash(name):
     
     #insert_bot_income(token, channel, user_id, text, trigger_id)
 
+    dialog_test = {
+        "callback_id": "sprtd_test",
+        "title": "Sparta dialog test",
+        "submit_label": "Ok",
+        "elements": [
+          {
+            "type": "text",
+            "label": "Enter your name",
+            "name": "fio"
+          },
+          {
+            "type": "text",
+            "label": "Enter your age",
+            "name": "age"
+          }
+        ]
+      }
+    
     trigger_id = request.values['trigger_id']
     api_data = {
         "token": sbot_token2,
         "trigger_id": trigger_id,
-        "dialog": json.dumps(dialogs[name])
+        "dialog": dialog_test) #json.dumps(dialogs[name])
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
