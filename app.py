@@ -29,6 +29,7 @@ sbot_name = os.environ['SBOT_NAME']
 sbot_token = os.environ['SBOT_TOKEN']
 sbot_token2 = os.environ['SBOT_TOKEN2']
 sbot_channel = os.environ['SBOT_CHANNEL']
+sbot_token3 = os.environ['SBOT_TOKEN3']
 
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 os.environ['last_selected_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -148,6 +149,32 @@ def interactive():
     response_text = 'test'
     interactive_action = json.loads(request.values['payload'])
 
+    dialog_test = {
+        "callback_id": "sprtd_test",
+        "title": "Sparta dialog test",
+        "submit_label": "Ok",
+        "elements": [
+          {
+            "type": "text",
+            "label": "Enter your name",
+            "name": "fio"
+          },
+          {
+            "type": "text",
+            "label": "Enter your age",
+            "name": "age"
+          }
+        ]
+      }
+    
+    trigger_id = request.values['trigger_id']
+    api_data = {
+        "token": sbot_token3,
+        "trigger_id": trigger_id,
+        "dialog": json.dumps(json.loads(dialogs[name])) #json.dumps(dialog_test)
+    }
+    res = requests.post(slack_api_dialog_url, data=api_data)
+    
     try:
         if interactive_action['type'] == 'interactive_message':
             pass
