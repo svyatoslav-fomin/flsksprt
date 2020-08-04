@@ -147,41 +147,15 @@ def slash(name):
 @app.route('/slack/interactive/v1', methods=['POST'])
 def interactive():
     response_text = 'test'
-    interactive_action = json.loads(request.values['payload'])
+    #interactive_action = json.loads(request.values['payload'])
 
-    dialog_test = {
-        "callback_id": "sprtd_test",
-        "title": "Sparta dialog test",
-        "submit_label": "Ok",
-        "elements": [
-          {
-            "type": "text",
-            "label": "Enter your name",
-            "name": "fio"
-          },
-          {
-            "type": "text",
-            "label": "Enter your age",
-            "name": "age"
-          }
-        ]
-      }
-    
-    trigger_id = request.values['trigger_id']
-    api_data = {
-        "token": sbot_token3,
-        "trigger_id": trigger_id,
-        "dialog": json.dumps(json.loads(dialogs[name])) #json.dumps(dialog_test)
-    }
-    res = requests.post(slack_api_dialog_url, data=api_data)
-    
-    try:
-        if interactive_action['type'] == 'interactive_message':
-            pass
-        elif interactive_action['type'] == 'dialog_submission':
-            pass
-    except Exception as ex:
-        response_text = 'Error: {0}'.format(ex)
+    #try:
+    #    if interactive_action['type'] == 'interactive_message':
+    #        pass
+    #    elif interactive_action['type'] == 'dialog_submission':
+    #        pass
+    #except Exception as ex:
+    #    response_text = 'Error: {0}'.format(ex)
 
     return response_text
 
