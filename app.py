@@ -160,21 +160,27 @@ def interactive_qq():
                 data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : f'для заказа {xcount} досок {length}x{width}x{height} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров.'
+                                'text'      : f'для заказа {xcount} досок(ки) {xlength}x{xwidth}x{xheight} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров.'
                              }
                 r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
-    except Exception as e:
-        response_text = 'Error: {0}'.format(e)
+    except Exception as ex:
+        response_text = 'Error: {0}'.format(ex)
 
     return make_response(response_text, 200)
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
+    token = request.form.get('token')
+    channel = request.form.get('channel_name')
+    user_id = request.form.get('user_id')
+    text =  request.form.get('text')
     trigger_id = request.values['trigger_id']
+    
+    insert_bot_income(token, channel, user_id, text, trigger_id)
     
     dialog_bcalc = {
         "callback_id": "bcalc_id",
-        "title": "Калькулятор закупки кубометров досок",
+        "title": "Калькулятор досок",
         "submit_label": "Ok",
         "elements": [
           {
@@ -217,10 +223,9 @@ def bcalc():
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
-    return 'Вы вызвали диалог для подсчёта кубометров досок' 
+    return trigger_id 
 
 if __name__ == '__main__':
     con.set_session(autocommit=True)
     exec_script('delete from sprt.bot_income;')
     app.run()
-
