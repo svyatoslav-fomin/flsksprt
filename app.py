@@ -146,20 +146,19 @@ def interactive_qq():
     response_text = 'test'
     #interactive_action = json.loads(request.values['payload'])
 
-    #try:
-    #    if interactive_action['type'] == 'interactive_message':
-    #        pass
-    #    elif interactive_action['type'] == 'dialog_submission':
-    #        pass
-    #except Exception as ex:
-    #    response_text = 'Error: {0}'.format(ex)
-    
-    data_info = {
-                    'token'     : sbot_qq_token,
-                    'channel'   : '#home',
-                    'text'      : 'text'
-               }
-    r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
+    try:
+        if interactive_action['type'] == 'interactive_message':
+            pass
+        elif interactive_action['type'] == 'dialog_submission':
+             data_info = {
+                            'token'     : sbot_qq_token,
+                            'channel'   : '#home',
+                            'text'      : 'text'
+                         }
+             r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
+    except Exception as ex:
+        response_text = 'Error: {0}'.format(ex)
+
     return make_response(response_text, 200)
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
