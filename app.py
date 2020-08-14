@@ -149,7 +149,7 @@ def interactive_qq():
     try:
         if interactive_action['type'] == 'interactive_message':
             pass
-        elif interactive_action['type'] == 'dialog_submission':
+        elif interactive_action['type'] == 'bcalc_id':
              data_info = {
                             'token'     : sbot_qq_token,
                             'channel'   : '#home',
