@@ -67,7 +67,7 @@ def get_queue_json_by_sql(sql_text):
 
 @app.route('/')
 def index():
-    return 'Hello world' + bot_rti_token
+    return 'Hello world'
 
 @app.route('/get_queue')
 def get_queue():
