@@ -31,6 +31,7 @@ sbot_token2 = os.environ['SBOT_TOKEN2']
 sbot_channel = os.environ['SBOT_CHANNEL']
 sbot_token3 = os.environ['SBOT_TOKEN3']
 sbot_qq_token = os.environ['SBOT_QQ_TOKEN']
+bot_rti_token = os.environ['BOT_RTI_TOKEN']
 
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 os.environ['last_selected_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -66,7 +67,7 @@ def get_queue_json_by_sql(sql_text):
 
 @app.route('/')
 def index():
-    return 'Hello world'
+    return 'Hello world' + bot_rti_token
 
 @app.route('/get_queue')
 def get_queue():
