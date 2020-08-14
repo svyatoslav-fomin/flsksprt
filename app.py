@@ -145,6 +145,8 @@ def interactive():
 def interactive_qq():
     response_text = 'test'
     slack_req = json.loads(request.values['payload'])
+    print("type: " + slack_req['type'])
+    print(slack_req)
 
     try:
         #if slack_req['type'] == 'shortcut':
@@ -153,7 +155,7 @@ def interactive_qq():
             data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type'] + slack_req['message_ts']
+                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type']
                              }
             r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
