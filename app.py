@@ -153,6 +153,16 @@ def interactive_qq():
     #        pass
     #except Exception as ex:
     #    response_text = 'Error: {0}'.format(ex)
+    
+   data_info = {
+                    'token'     : sbot_qq_token,
+                    'channel'   : '#home',
+                    'text'      : 'text'
+               }
+ return requests.post(
+                         'https://slack.com/api/chat.postMessage',
+                         data_info
+                        ).json()
 
     return make_response(response_text, 200)
   
