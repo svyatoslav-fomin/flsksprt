@@ -227,5 +227,4 @@ def bcalc():
 
 if __name__ == '__main__':
     con.set_session(autocommit=True)
-    exec_script('delete from sprt.bot_income;')
     app.run()
