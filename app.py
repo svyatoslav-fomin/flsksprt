@@ -117,25 +117,6 @@ def slash(name):
     
     insert_bot_income(token, channel, user_id, text, trigger_id)
 
-    dialog_test = {
-        "callback_id": "sprtd_test",
-        "title": "Sparta dialog test",
-        "submit_label": "Ok",
-        "elements": [
-          {
-            "type": "text",
-            "label": "Enter your name",
-            "name": "fio"
-          },
-          {
-            "type": "text",
-            "label": "Enter your age",
-            "name": "age"
-          }
-        ]
-      }
-    
-    trigger_id = request.values['trigger_id']
     api_data = {
         "token": sbot_token2,
         "trigger_id": trigger_id,
@@ -168,40 +149,21 @@ def bcalc():
     text =  request.form.get('text')
     trigger_id = request.values['trigger_id']
     
+    insert_bot_income(token, channel, user_id, text, trigger_id)
+    
     dialog_bcalc = {
-        "callback_id": "sprtd_test",
-        "title": "Sparta dialog test",
+        "callback_id": "bcalc_id",
+        "title": "Калькулятор досок",
         "submit_label": "Ok",
         "elements": [
           {
             "type": "text",
             "label": "Длина (см)",
             "name": "length"
-          },
-          {
-            "type": "text",
-            "label": "Ширина (см)",
-            "name": "width"
-          },
-          {
-            "type": "text",
-            "label": "Высота (см)",
-            "name": "width"
-          },
-          {
-            "type": "text",
-            "label": "Кол-во досок",
-            "name": "width"
-          },
-          {
-            "type": "text",
-            "label": "Ширина (см)",
-            "name": "width"
           }
         ]
       }
 
-    trigger_id = request.values['trigger_id']
     api_data = {
         "token": sbot_qq_token,
         "trigger_id": trigger_id,
