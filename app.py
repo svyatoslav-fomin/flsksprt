@@ -147,15 +147,15 @@ def interactive_qq():
     interactive_action = json.loads(request.values['payload'])
 
     try:
-        #if interactive_action['type'] == 'shortcut':
-        #    pass
-        #elif interactive_action['type'] == 'dialog_submission':
-        data_info = {
-                            'token'     : sbot_qq_token,
-                            'channel'   : '#home',
-                            'text'      : interactive_action
-                         }
-        r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
+        if interactive_action['type'] == 'shortcut':
+            pass
+        elif interactive_action['type'] == 'dialog_submission':
+            data_info = {
+                                'token'     : sbot_qq_token,
+                                'channel'   : '#home',
+                                'text'      : interactive_action['xlength']
+                             }
+            r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
         response_text = 'Error: {0}'.format(ex)
 
@@ -179,7 +179,8 @@ def bcalc():
           {
             "type": "text",
             "label": "Длина (см)",
-            "name": "xlength"
+            "name": "xlength",
+            "text": "600"
           },
           {
             "type": "text",
