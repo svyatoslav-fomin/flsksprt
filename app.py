@@ -147,13 +147,13 @@ def interactive_qq():
     interactive_action = json.loads(request.values['payload'])
 
     try:
-        #if interactive_action['type'] == 'interactive_message':
+        #if interactive_action['type'] == 'shortcut':
         #    pass
-        #elif interactive_action['type'] == 'bcalc_id':
+        #elif interactive_action['type'] == 'dialog_submission':
         data_info = {
                             'token'     : sbot_qq_token,
                             'channel'   : '#home',
-                            'text'      : interactive_action['type']
+                            'text'      : interactive_action
                          }
         r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
