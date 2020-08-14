@@ -223,7 +223,7 @@ def bcalc():
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
-    return trigger_id 
+    return "Открываю калькулятор досок"
 
 if __name__ == '__main__':
     con.set_session(autocommit=True)
