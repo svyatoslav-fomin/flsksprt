@@ -143,7 +143,6 @@ def interactive():
   
 @app.route('/slack/interactive/qq', methods=['POST'])
 def interactive_qq():
-    response_text = 'test'
     slack_req = json.loads(request.values['payload'])
     #print(slack_req)    
     try:
@@ -161,7 +160,7 @@ def interactive_qq():
                 data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : f'для заказа {xcount} досок(ки) {xlength}см x{xwidth}см x{xheight}см по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров, денег надо {bcalc_price}р.'
+                                'text'      : f'для заказа {xcount} досок {xlength}см x {xwidth}см x {xheight}см по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров, денег надо {bcalc_price}р.'
                              }
                 r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
