@@ -160,6 +160,26 @@ def bcalc():
             "type": "text",
             "label": "Длина (см)",
             "name": "length"
+          },
+          {
+            "type": "text",
+            "label": "Ширина (см)",
+            "name": "width"
+          },
+          {
+            "type": "text",
+            "label": "Высота (см)",
+            "name": "width"
+          },
+          {
+            "type": "text",
+            "label": "Кол-во досок",
+            "name": "width"
+          },
+          {
+            "type": "text",
+            "label": "Ширина (см)",
+            "name": "width"
           }
         ]
       }
