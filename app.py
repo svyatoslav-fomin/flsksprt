@@ -144,16 +144,16 @@ def interactive():
 @app.route('/slack/interactive/qq', methods=['POST'])
 def interactive_qq():
     response_text = 'test'
-    interactive_action = json.loads(request.values['payload'])
+    slack_req = json.loads(request.values['payload'])
 
     try:
-        if interactive_action['type'] == 'shortcut':
-            pass
-        elif interactive_action['type'] == 'dialog_submission':
+        #if slack_req['type'] == 'shortcut':
+        #    pass
+        #elif slack_req['type'] == 'dialog_submission':
             data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : interactive_action['xlength']
+                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type']
                              }
             r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
