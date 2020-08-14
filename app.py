@@ -200,7 +200,7 @@ def bcalc():
           }
         ]
       }
-    
+
     trigger_id = request.values['trigger_id']
     api_data = {
         "token": sbot_qq_token,
@@ -209,7 +209,7 @@ def bcalc():
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
-    return sbot_qq_token 
+    return trigger_id 
 
 if __name__ == '__main__':
     con.set_session(autocommit=True)
