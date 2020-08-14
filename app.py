@@ -207,7 +207,7 @@ def bcalc():
         "trigger_id": trigger_id,
         "dialog": json.dumps(dialog_bcalc) #json.dumps(json.loads(dialog_bcalc))
     }
-    res = requests.post(slack_api_dialog_url, data=dialog_bcalc)
+    res = requests.post(slack_api_dialog_url, data=api_data)
     
     return 'test'
 
