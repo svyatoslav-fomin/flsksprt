@@ -145,19 +145,24 @@ def interactive():
 def interactive_qq():
     response_text = 'test'
     slack_req = json.loads(request.values['payload'])
-    print("type: " + slack_req['type'])
-    print(slack_req)
-
+    #print(slack_req)    
     try:
-        #if slack_req['type'] == 'shortcut':
-        #    pass
-        #elif slack_req['type'] == 'dialog_submission':
-            data_info = {
+        if slack_req['type'] == 'shortcut':
+            pass
+        elif slack_req['type'] == 'dialog_submission':
+            if slack_req['callback_id'] == 'bcalc_id':
+                xlength = float(slack_req['submission']['xlength'])
+                xwidth  = float(slack_req['submission']['xwidth'])
+                xheight = float(slack_req['submission']['xheight'])
+                xcount  = float(slack_req['submission']['xcount'])
+                xprice  = float(slack_req['submission']['xprice'])
+                bcalc_result = (xlength*xwidth*xheight/100000000)*xcount*xprice
+                data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type']
+                                'text'      : f'для заказа {xcount} досок(ки) {xlength}x{xwidth}x{xheight} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров.'
                              }
-            r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
+                r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
         response_text = 'Error: {0}'.format(ex)
 
