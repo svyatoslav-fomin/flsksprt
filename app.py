@@ -162,52 +162,7 @@ def interactive():
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
-    token = request.form.get('token')
-    channel = request.form.get('channel_name')
-    user_id = request.form.get('user_id')
-    text =  request.form.get('text')
-    trigger_id = request.values['trigger_id']
-    
-    dialog_bcalc = {
-        "callback_id": "sprtd_test",
-        "title": "Sparta dialog test",
-        "submit_label": "Ok",
-        "elements": [
-          {
-            "type": "text",
-            "label": "Длина (см)",
-            "name": "length"
-          },
-          {
-            "type": "text",
-            "label": "Ширина (см)",
-            "name": "width"
-          },
-          {
-            "type": "text",
-            "label": "Высота (см)",
-            "name": "width"
-          },
-          {
-            "type": "text",
-            "label": "Кол-во досок",
-            "name": "width"
-          },
-          {
-            "type": "text",
-            "label": "Ширина (см)",
-            "name": "width"
-          }
-        ]
-      }
-    
-    trigger_id = request.values['trigger_id']
-    api_data = {
-        "token": sbot_qq_token,
-        "trigger_id": trigger_id,
-        "dialog": json.dumps(json.loads(dialogs[name])) #json.dumps(dialog_test)
-    }
-    res = requests.post(slack_api_dialog_url, data=dialog_bcalc)
+
     
     return 'test'
 
