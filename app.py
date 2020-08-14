@@ -30,6 +30,7 @@ sbot_token = os.environ['SBOT_TOKEN']
 sbot_token2 = os.environ['SBOT_TOKEN2']
 sbot_channel = os.environ['SBOT_CHANNEL']
 sbot_token3 = os.environ['SBOT_TOKEN3']
+sbot_qq_token = os.environ['SBOT_QQ_TOKEN']
 
 os.environ['last_inserted_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 os.environ['last_selected_income_date'] = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -202,7 +203,7 @@ def bcalc():
     
     trigger_id = request.values['trigger_id']
     api_data = {
-        "token": sbot_token2,
+        "token": sbot_qq_token,
         "trigger_id": trigger_id,
         "dialog": json.dumps(json.loads(dialogs[name])) #json.dumps(dialog_test)
     }
