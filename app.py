@@ -209,7 +209,7 @@ def bcalc():
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
-    return 'test'
+    return sbot_qq_token 
 
 if __name__ == '__main__':
     con.set_session(autocommit=True)
