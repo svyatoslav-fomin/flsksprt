@@ -154,7 +154,7 @@ def interactive_qq():
     #except Exception as ex:
     #    response_text = 'Error: {0}'.format(ex)
 
-    return make_response(response_text, 200)
+    return flask.make_response(response_text, 200)
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
