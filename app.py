@@ -205,7 +205,7 @@ def bcalc():
     api_data = {
         "token": sbot_qq_token,
         "trigger_id": trigger_id,
-        "dialog": json.dumps(json.loads(dialog_bcalc)) #json.dumps(dialog_bcalc)
+        "dialog": json.dumps(dialog_bcalc) #json.dumps(json.loads(dialog_bcalc))
     }
     res = requests.post(slack_api_dialog_url, data=dialog_bcalc)
     
