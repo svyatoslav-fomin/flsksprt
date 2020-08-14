@@ -144,18 +144,18 @@ def interactive():
 @app.route('/slack/interactive/qq', methods=['POST'])
 def interactive_qq():
     response_text = 'test'
-    #interactive_action = json.loads(request.values['payload'])
+    interactive_action = json.loads(request.values['payload'])
 
     try:
-        if interactive_action['type'] == 'interactive_message':
-            pass
-        elif interactive_action['type'] == 'bcalc_id':
-             data_info = {
+        #if interactive_action['type'] == 'interactive_message':
+        #    pass
+        #elif interactive_action['type'] == 'bcalc_id':
+        data_info = {
                             'token'     : sbot_qq_token,
                             'channel'   : '#home',
-                            'text'      : 'text'
+                            'text'      : interactive_action['type']
                          }
-             r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
+        r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
         response_text = 'Error: {0}'.format(ex)
 
