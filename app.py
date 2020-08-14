@@ -170,13 +170,7 @@ def interactive_qq():
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
-    token = request.form.get('token')
-    channel = request.form.get('channel_name')
-    user_id = request.form.get('user_id')
-    text =  request.form.get('text')
     trigger_id = request.values['trigger_id']
-    
-    insert_bot_income(token, channel, user_id, text, trigger_id)
     
     dialog_bcalc = {
         "callback_id": "bcalc_id",
