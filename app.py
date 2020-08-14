@@ -151,22 +151,22 @@ def interactive_qq():
             pass
         elif slack_req['type'] == 'dialog_submission':
             if slack_req['callback_id'] == 'bcalc_id':
-                xlength = float(slack_req['submission']['xlength'])
-                xwidth  = float(slack_req['submission']['xwidth'])
-                xheight = float(slack_req['submission']['xheight'])
-                xcount  = float(slack_req['submission']['xcount'])
-                xprice  = float(slack_req['submission']['xprice'])
+                xlength = int(slack_req['submission']['xlength'])
+                xwidth  = int(slack_req['submission']['xwidth'])
+                xheight = int(slack_req['submission']['xheight'])
+                xcount  = int(slack_req['submission']['xcount'])
+                xprice  = int(slack_req['submission']['xprice'])
                 bcalc_result = (xlength*xwidth*xheight/100000000)*xcount*xprice
                 data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : f'для заказа {xcount} досок(ки) {xlength}x{xwidth}x{xheight} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров.'
+                                'text'      : f'для заказа {xcount} досок {length}x{width}x{height} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров.'
                              }
                 r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
         response_text = 'Error: {0}'.format(ex)
 
-    return make_response(response_text, 200)
+    return make_response("", 200)
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
@@ -180,7 +180,7 @@ def bcalc():
     
     dialog_bcalc = {
         "callback_id": "bcalc_id",
-        "title": "Калькулятор досок",
+        "title": "Калькулятор закупки кубометров досок",
         "submit_label": "Ok",
         "elements": [
           {
@@ -223,7 +223,7 @@ def bcalc():
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
     
-    return trigger_id 
+    return 'Вы вызвали диалог для подсчёта кубометров досок' 
 
 if __name__ == '__main__':
     con.set_session(autocommit=True)
