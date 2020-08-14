@@ -159,27 +159,27 @@ def bcalc():
           {
             "type": "text",
             "label": "Длина (см)",
-            "name": "length"
+            "name": "xlength"
           },
           {
             "type": "text",
             "label": "Ширина (см)",
-            "name": "width"
+            "name": "xwidth"
           },
           {
             "type": "text",
             "label": "Высота (см)",
-            "name": "width"
+            "name": "xheight"
           },
           {
             "type": "text",
             "label": "Кол-во досок",
-            "name": "width"
+            "name": "xcount"
           },
           {
             "type": "text",
-            "label": "Ширина (см)",
-            "name": "width"
+            "label": "Цена",
+            "name": "xprice"
           }
         ]
       }
