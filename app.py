@@ -1,5 +1,5 @@
 #!flask/bin/python
-from flask import Flask, request
+from flask import Flask, request, make_response
 import requests
 import psycopg2
 import os
@@ -154,7 +154,7 @@ def interactive_qq():
     #except Exception as ex:
     #    response_text = 'Error: {0}'.format(ex)
 
-    return flask.make_response(response_text, 200)
+    return make_response(response_text, 200)
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
