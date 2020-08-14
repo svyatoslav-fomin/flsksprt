@@ -153,7 +153,7 @@ def interactive_qq():
             data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type']
+                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type'] + ', ' + slack_req['token'] + ', ' + slack_req['actions'][0]
                              }
             r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
@@ -180,7 +180,7 @@ def bcalc():
             "type": "text",
             "label": "Длина (см)",
             "name": "xlength",
-            "text": "600"
+            "value": "600"
           },
           {
             "type": "text",
