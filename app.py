@@ -153,7 +153,7 @@ def interactive_qq():
             data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type'] + ', ' + slack_req['token'] + ', ' + slack_req['actions'][0]
+                                'text'      : slack_req["user"]["id"] + ', ' + slack_req['type'] + slack_req['message_ts']
                              }
             r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
@@ -185,22 +185,26 @@ def bcalc():
           {
             "type": "text",
             "label": "Ширина (см)",
-            "name": "xwidth"
+            "name": "xwidth",
+            "value": "20"
           },
           {
             "type": "text",
             "label": "Высота (см)",
-            "name": "xheight"
+            "name": "xheight",
+            "value": "4"
           },
           {
             "type": "text",
             "label": "Кол-во досок",
-            "name": "xcount"
+            "name": "xcount",
+            "value": "40"
           },
           {
             "type": "text",
             "label": "Цена",
-            "name": "xprice"
+            "name": "xprice",
+            "value": "9500"
           }
         ]
       }
