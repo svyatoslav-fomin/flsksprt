@@ -156,11 +156,12 @@ def interactive_qq():
                 xheight = float(slack_req['submission']['xheight'])
                 xcount  = float(slack_req['submission']['xcount'])
                 xprice  = float(slack_req['submission']['xprice'])
-                bcalc_result = (xlength*xwidth*xheight/100000000)*xcount*xprice
+                bcalc_result = (xlength*xwidth*xheight/100000000)*xcount
+                bcalc_price = bcalc_result*xprice
                 data_info = {
                                 'token'     : sbot_qq_token,
                                 'channel'   : '#home',
-                                'text'      : f'для заказа {xcount} досок(ки) {xlength}x{xwidth}x{xheight} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров.'
+                                'text'      : f'для заказа {xcount} досок(ки) {xlength}x{xwidth}x{xheight} по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров, денег надо {bcalc_price}р.'
                              }
                 r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
     except Exception as ex:
