@@ -55,12 +55,12 @@ def slash_test():
     #    token = request.form.get('token')
     #    channel = request.form.get('channel_name')
     #    user_id = request.form.get('user_id')
-    #    text = request.form.get('text')
+    text = request.form.get('text')
     #    trigger_id = request.values['trigger_id']
     print('*******************')
     print(request.form)
     print('*******************')
-    return "Вы успешно выполнили тестовую команду с параметром"
+    return "Вы успешно выполнили тестовую команду с параметром {text}"
 
 
 @app.route('/slack/slash/bcalc', methods=['POST'])
