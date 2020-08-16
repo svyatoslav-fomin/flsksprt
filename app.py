@@ -34,14 +34,18 @@ def slash_test():
 @app.route('/slack/interactive', methods=['POST'])
 def interactive():
     slack_req = json.loads(request.values['payload'])
+    token = slack_req['token']
+    if token != verification_token:
+        return ''
     print('*******************')
     print(slack_req)
     print('*******************')
     try:
         if slack_req['type'] == 'shortcut':
             callback_id = slack_req['callback_id']
-            r = requests.post('https://slack.com/api/chat.postMessage',
-                              f'Вы выбрали shortcut с callback_id={callback_id}').json()
+            return make_response("test", 200)
+            #r = requests.post('https://slack.com/api/chat.postMessage',
+            #                  f'Вы выбрали shortcut с callback_id={callback_id}').json()
         elif slack_req['type'] == 'dialog_submission':
             if slack_req['callback_id'] == 'bcalc_id':
                 xlength = int(slack_req['submission']['xlength'])
