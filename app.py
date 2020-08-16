@@ -168,6 +168,10 @@ def interactive_qq():
         response_text = 'Error: {0}'.format(ex)
 
     return make_response("", 200)
+
+@app.route('/slack/slash/test', methods=['POST'])
+def slash_test():
+  return "test"
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
