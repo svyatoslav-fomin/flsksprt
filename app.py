@@ -8,7 +8,8 @@ import json
 app = Flask(__name__)
 
 slack_api_dialog_url = 'https://slack.com/api/dialog.open'
-bot_rti_token = os.environ['BOT_RTI_TOKEN']
+bot_rti_token      = os.environ['BOT_RTI_TOKEN']
+verification_token = os.environ['VERIFICATION_TOKEN']
 
 def post_message_to_slack(token, channel, text, blocks=None):
     return requests.post('https://slack.com/api/chat.postMessage', {
@@ -22,8 +23,16 @@ def post_message_to_slack(token, channel, text, blocks=None):
 def index():
     return 'Hello world'
 
+@app.route('/slack/slash/test', methods=['POST'])
+def slash_test():
+    token = request.form.get('token')
+    if token != verification_token:
+        return ''
+    text = request.form.get('text')
+    return f"Вы успешно выполнили тестовую команду с параметром {text}"
+
 @app.route('/slack/interactive', methods=['POST'])
-def interactive_qq():
+def interactive():
     slack_req = json.loads(request.values['payload'])
     # print(slack_req)
     try:
@@ -49,20 +58,11 @@ def interactive_qq():
 
     return make_response("", 200)
 
-@app.route('/slack/slash/test', methods=['POST'])
-def slash_test():
-    # slack_req = json.loads(request.values['payload'])
-    #    token = request.form.get('token')
-    #    channel = request.form.get('channel_name')
-    #    user_id = request.form.get('user_id')
-    text = request.form.get('text')
-    #    trigger_id = request.values['trigger_id']
-    return f"Вы успешно выполнили тестовую команду с параметром {text}"
-
-
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
     token = request.form.get('token')
+    if token != verification_token:
+        return ''
     channel = request.form.get('channel_name')
     user_id = request.form.get('user_id')
     text = request.form.get('text')
@@ -115,7 +115,6 @@ def bcalc():
     print('res dialog open = ' + res)
 
     return "Открываю калькулятор досок"
-
 
 if __name__ == '__main__':
     app.run()
