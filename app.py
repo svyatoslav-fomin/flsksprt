@@ -169,9 +169,9 @@ def interactive_qq():
 
     return make_response("", 200)
 
-@app.route('/slack/slash/test', methods=['POST'])
-def slash_test():
-  return "test"
+@app.route('/slack/slash/test/<name>', methods=['POST'])
+def slash_test(param):
+  return "Вы успешно выполнили тестовую команду с параметром {param}"
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
 def bcalc():
