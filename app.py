@@ -171,6 +171,8 @@ def interactive_qq():
 
 @app.route('/slack/slash/test', methods=['POST'])
 def slash_test():
+  slack_req = json.loads(request.values['payload'])
+  print(slack_req)
   return "Вы успешно выполнили тестовую команду с параметром"
   
 @app.route('/slack/slash/bcalc', methods=['POST'])
