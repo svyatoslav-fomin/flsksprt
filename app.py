@@ -11,9 +11,9 @@ slack_api_dialog_url = 'https://slack.com/api/dialog.open'
 bot_rti_token      = os.environ['BOT_RTI_TOKEN']
 verification_token = os.environ['VERIFICATION_TOKEN']
 
-def post_message_to_slack(token, channel, text, blocks=None):
+def post_message_to_slack(channel, text, blocks=None):
     return requests.post('https://slack.com/api/chat.postMessage', {
-        'token': token,
+        'token': bot_rti_token,
         'channel': channel,
         'text': text,
         'blocks': json.dumps(blocks) if blocks else None
@@ -34,10 +34,14 @@ def slash_test():
 @app.route('/slack/interactive', methods=['POST'])
 def interactive():
     slack_req = json.loads(request.values['payload'])
-    # print(slack_req)
+    print('*******************')
+    print(slack_req)
+    print('*******************')
     try:
         if slack_req['type'] == 'shortcut':
-            pass
+            callback_id = slack_req['callback_id']
+            r = requests.post('https://slack.com/api/chat.postMessage',
+                              f'Вы выбрали shortcut с callback_id={callback_id}').json()
         elif slack_req['type'] == 'dialog_submission':
             if slack_req['callback_id'] == 'bcalc_id':
                 xlength = int(slack_req['submission']['xlength'])
