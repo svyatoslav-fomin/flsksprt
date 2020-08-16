@@ -7,9 +7,16 @@ import json
 
 app = Flask(__name__)
 
+url_post_message     = 'https://slack.com/api/chat.postMessage'
 slack_api_dialog_url = 'https://slack.com/api/dialog.open'
+
 bot_rti_token      = os.environ['BOT_RTI_TOKEN']
 verification_token = os.environ['VERIFICATION_TOKEN']
+
+def post_to_slack(url_to_post, **kwargs):
+    data_info = {'token': bot_rti_token}
+    data_info.update(kwargs)
+    return requests.post(url_to_post, data_info).json()
 
 def post_message_to_slack(channel, text, blocks=None):
     return requests.post('https://slack.com/api/chat.postMessage', {
@@ -46,6 +53,16 @@ def interactive():
             return make_response("test", 200)
             #r = requests.post('https://slack.com/api/chat.postMessage',
             #                  f'Вы выбрали shortcut с callback_id={callback_id}').json()
+        elif slack_req['type'] == 'message_action':
+            callback_id = slack_req['callback_id']
+            channel = slack_req['channel']['id']
+            message_ts = slack_req['message_ts']
+            msg_text = slack_req['message']['text']
+            if callback_id == 'reverse_text':
+                post_to_slack(url_post_message,
+                              thread_ts = message_ts,
+                              text      = msg_text[::-1],
+                              channel   = channel)
         elif slack_req['type'] == 'dialog_submission':
             if slack_req['callback_id'] == 'bcalc_id':
                 xlength = int(slack_req['submission']['xlength'])
