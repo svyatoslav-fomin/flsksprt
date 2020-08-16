@@ -58,7 +58,7 @@ def slash_test():
     #    text = request.form.get('text')
     #    trigger_id = request.values['trigger_id']
     print('*******************')
-    print(request)
+    print(request.form)
     print('*******************')
     return "Вы успешно выполнили тестовую команду с параметром"
 
