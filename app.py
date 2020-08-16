@@ -177,7 +177,7 @@ def bcalc():
     text =  request.form.get('text')
     trigger_id = request.values['trigger_id']
     
-    insert_bot_income(token, channel, user_id, text, trigger_id)
+    #insert_bot_income(token, channel, user_id, text, trigger_id)
     
     dialog_bcalc = {
         "callback_id": "bcalc_id",
@@ -223,6 +223,7 @@ def bcalc():
         "dialog": json.dumps(dialog_bcalc) #json.dumps(json.loads(dialog_bcalc))
     }
     res = requests.post(slack_api_dialog_url, data=api_data)
+    print('res dialog open = ' + res)
     
     return "Открываю калькулятор досок"
 
