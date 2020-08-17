@@ -132,7 +132,7 @@ def bcalc():
     }
 
     api_data = {
-        "token": sbot_qq_token,
+        "token": bot_rti_token,
         "trigger_id": trigger_id,
         "dialog": json.dumps(dialog_bcalc)  # json.dumps(json.loads(dialog_bcalc))
     }
