@@ -65,6 +65,7 @@ def interactive():
                               channel   = channel)
         elif slack_req['type'] == 'dialog_submission':
             if slack_req['callback_id'] == 'bcalc_id':
+                channel = slack_req['channel']['id']
                 xlength = int(slack_req['submission']['xlength'])
                 xwidth = int(slack_req['submission']['xwidth'])
                 xheight = int(slack_req['submission']['xheight'])
@@ -74,7 +75,7 @@ def interactive():
                 bcalc_price = round(bcalc_result * xprice, 2)
                 data_info = {
                     'token': bot_rti_token,
-                    'channel': '#home',
+                    'channel': channel,
                     'text': f'для заказа {xcount} досок {xlength}см x {xwidth}см x {xheight}см по цене {xprice}р. за кубометр необходимо заказывать {bcalc_result} кубометров, денег надо {bcalc_price}р.'
                 }
                 r = requests.post('https://slack.com/api/chat.postMessage', data_info).json()
