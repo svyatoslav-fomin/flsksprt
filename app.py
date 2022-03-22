@@ -30,6 +30,48 @@ def post_message_to_slack(channel, text, blocks=None):
 def index():
     return 'Hello world'
 
+@app.route('/test_json')
+def index_test_json():
+    test_json = {
+        "callback_id": "bcalc_id",
+        "title": "Калькулятор досок",
+        "submit_label": "Ok",
+        "elements": [
+            {
+                "type": "text",
+                "label": "Длина (см)",
+                "name": "xlength",
+                "value": "600"
+            },
+            {
+                "type": "text",
+                "label": "Ширина (см)",
+                "name": "xwidth",
+                "value": "20"
+            },
+            {
+                "type": "text",
+                "label": "Высота (см)",
+                "name": "xheight",
+                "value": "4"
+            },
+            {
+                "type": "text",
+                "label": "Кол-во досок",
+                "name": "xcount",
+                "value": "40"
+            },
+            {
+                "type": "text",
+                "label": "Цена",
+                "name": "xprice",
+                "value": "9500"
+            }
+        ]
+    }
+    print(test_json)
+    return 'Hello'
+
 @app.route('/slack/slash/test', methods=['POST'])
 def slash_test():
     token = request.form.get('token')
