@@ -71,6 +71,10 @@ def index_test_json():
     }
     return json.dumps(test_json)
 
+@app.route('/test_post', methods=['POST'])
+def test_post():
+    return 'all ok'
+
 @app.route('/slack/slash/test', methods=['POST'])
 def slash_test():
     token = request.form.get('token')
