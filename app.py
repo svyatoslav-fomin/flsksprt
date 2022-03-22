@@ -69,7 +69,7 @@ def index_test_json():
             }
         ]
     }
-    return test_json
+    return json.loads(test_json)
 
 @app.route('/slack/slash/test', methods=['POST'])
 def slash_test():
