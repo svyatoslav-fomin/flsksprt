@@ -69,8 +69,7 @@ def index_test_json():
             }
         ]
     }
-    print(test_json)
-    return 'Hello'
+    return jsonify(test_json)
 
 @app.route('/slack/slash/test', methods=['POST'])
 def slash_test():
