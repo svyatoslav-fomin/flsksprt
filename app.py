@@ -69,7 +69,7 @@ def index_test_json():
             }
         ]
     }
-    return Response(json.dumps(test_json), mimetype='application/json')
+    return json.dumps(test_json)
 
 @app.route('/slack/slash/test', methods=['POST'])
 def slash_test():
