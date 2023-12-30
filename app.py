@@ -28,7 +28,7 @@ def post_message_to_slack(channel, text, blocks=None):
 
 @app.route('/')
 def index():
-    return 'Hello world'
+    return 'Hello world!'
 
 @app.route('/test_json')
 def index_test_json():
